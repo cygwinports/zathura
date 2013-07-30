@@ -1,0 +1,29 @@
+NAME="zathura"
+VERSION=0.2.3
+RELEASE=1
+CATEGORY="Graphics"
+SUMMARY="Customizable document viewer (plugin(s) required)"
+DESCRIPTION="zathura is a highly customizable and functional document viewer.
+It provides a minimalistic and space saving interface as well as an easy usage
+that mainly focuses on keyboard interaction."
+HOMEPAGE="http://pwmt.org/projects/zathura/"
+SRC_URI="http://pwmt.org/projects/zathura/download/${NAME}-${VERSION}.tar.gz"
+
+PKG_NAMES="${NAME} ${NAME}-devel"
+zathura_CONTENTS="usr/bin/ usr/share/"
+zathura_devel_CONTENTS="usr/include/ usr/lib/"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	cygmake \
+		CC=${CC} CFLAGS="${CFLAGS} -std=c99 \$(INCS)" SFLAGS= \
+		LDFLAGS="-Wl,--export-all-symbols,--out-implib,libzathura.dll.a"
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+	dolib libzathura.dll.a
+	echo "Libs: -lzathura" >> ${D}/usr/lib/pkgconfig/zathura.pc
+}
