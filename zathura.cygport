@@ -1,5 +1,5 @@
 NAME="zathura"
-VERSION=0.2.3
+VERSION=0.2.7
 RELEASE=1
 CATEGORY="Graphics"
 SUMMARY="Customizable document viewer (plugin(s) required)"
@@ -11,13 +11,14 @@ SRC_URI="http://pwmt.org/projects/zathura/download/${NAME}-${VERSION}.tar.gz"
 
 PKG_NAMES="${NAME} ${NAME}-devel"
 zathura_CONTENTS="usr/bin/ usr/share/"
+zathura_devel_REQUIRES="libgirara-devel"
 zathura_devel_CONTENTS="usr/include/ usr/lib/"
 
 src_compile() {
 	lndirs
 	cd ${B}
 	cygmake \
-		CC=${CC} CFLAGS="${CFLAGS} -std=c99 \$(INCS)" SFLAGS= \
+		CC=${CC} CFLAGS="${CFLAGS} -std=gnu99 \$(INCS)" SFLAGS= \
 		LDFLAGS="-Wl,--export-all-symbols,--out-implib,libzathura.dll.a"
 }
 
