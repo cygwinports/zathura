@@ -1,5 +1,5 @@
 NAME="zathura"
-VERSION=0.2.7
+VERSION=0.3.3
 RELEASE=1
 CATEGORY="Graphics"
 SUMMARY="Customizable document viewer (plugin(s) required)"
